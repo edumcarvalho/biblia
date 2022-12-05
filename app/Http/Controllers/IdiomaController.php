@@ -47,6 +47,7 @@ class IdiomaController extends Controller
         $idioma =  Idioma::find($idioma);
         if ($idioma){
 
+            $idioma->versoes;
             return $idioma;
         }
 

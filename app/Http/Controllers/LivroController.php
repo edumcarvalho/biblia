@@ -55,6 +55,7 @@ class LivroController extends Controller
             // return $response;
             $livro->testamento;
             $livro->versiculos;
+            $livro->versao;
             
             return $livro;
         }
@@ -75,9 +76,7 @@ class LivroController extends Controller
     public function update(Request $request, $livro)
     {
         
-        $path = $request->capa->store('capa_livro', 'public');
-
-        //dd('teste');
+        $path = $request->capa->store('capa_livro', 'public');        
 
         $livro =  Livro::find($livro);
         if ($livro){

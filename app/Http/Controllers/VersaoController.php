@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Versao;
 use Illuminate\Http\Request;
 
 class VersaoController extends Controller
@@ -13,7 +14,7 @@ class VersaoController extends Controller
      */
     public function index()
     {
-        //
+        return Versao::all();
     }
 
     /**
@@ -24,7 +25,15 @@ class VersaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Versao::create($request->all())) {
+            return response()->json([
+                'message' => 'Versao cadastrado com sucesso.'
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'Erro ao cadastrar o Versao.'
+        ], 404);
     }
 
     /**
@@ -33,9 +42,20 @@ class VersaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($versao)
     {
-        //
+        $versao =  Versao::find($versao);
+        if ($versao){
+            
+            $versao->idioma;
+            $versao->livros;
+            
+            return $versao;            
+        }
+
+        return response()->json([
+            'message' => 'Versao não existe.'
+        ], 404);
     }
 
     /**
@@ -45,9 +65,17 @@ class VersaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $versao)
     {
-        //
+        $versao =  Versao::find($versao);
+        if ($versao){
+            $versao->update($request->all());
+            return $versao;
+        }
+
+        return response()->json([
+            'message' => 'Versao não existe.'
+        ], 404); 
     }
 
     /**
@@ -56,8 +84,16 @@ class VersaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($versao)
     {
-        //
+        if (Versao::destroy($versao)) {
+            return response()->json([
+                'message' => 'Versao excluído com sucesso.'
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'Erro ao excluir o Versao.'
+        ], 404);
     }
 }
