@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class IdiomaResource extends JsonResource
+class VersoesCollection extends ResourceCollection
 {
 
     /**
@@ -12,10 +12,10 @@ class IdiomaResource extends JsonResource
      *
      * @var string|null
      */
-    //public static $wrap = 'idioma';
+    //public static $wrap = 'versoes';
 
     /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
@@ -23,10 +23,7 @@ class IdiomaResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=> $this->id,
-            'nome'=> $this->nome,
-            //aqui tras os relacionamentos
-            'versoes'=> new VersoesCollection($this->whenLoaded('versoes')) 
+            'data' => VersaoResource::collection($this->collection),
         ];
     }
 }

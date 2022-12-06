@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\VersaoResource;
+use App\Http\Resources\VersoesCollection;
 use App\Models\Versao;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,17 @@ class VersaoController extends Controller
      */
     public function index()
     {
-        return Versao::all();
+        #essa chamado abaixo é para quenado vc não usa Collection
+        // return Versao::all();
+
+        # a chamada abaixo traz todos os campos da tabela
+        // return new VersoesCollection(Versao::all());
+        
+        # a chamad abaixo traz apenas os campos escolhidos no select
+        //return new VersoesCollection(Versao::select('id', 'nome', 'abreviacao', 'idioma_id')->get());
+        
+        # a chamad abaixo traz apenas os campos escolhidos no select e com paginação
+        return new VersoesCollection(Versao::select('id', 'nome', 'abreviacao', 'idioma_id')->paginate(5));
     }
 
     /**
@@ -44,13 +56,10 @@ class VersaoController extends Controller
      */
     public function show($versao)
     {
-        $versao =  Versao::find($versao);
-        if ($versao){
-            
-            $versao->idioma;
-            $versao->livros;
-            
-            return $versao;            
+        $versao =  Versao::with('idioma','livros')->find($versao);
+        if ($versao){     
+
+            return new VersaoResource($versao);
         }
 
         return response()->json([

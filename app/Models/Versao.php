@@ -9,10 +9,13 @@ class Versao extends Model
 {
     use HasFactory;
 
+    //alterando o nome da tabela
     protected $table = 'versoes';
 
+    #campos mapeados na tabela
     protected $fillable = ['nome', 'abreviacao', 'idioma_id'];
 
+    # aqui abaixo são realizados os relacionamentos
     //uma versão pertence a um idioma
     public function idioma()
         {

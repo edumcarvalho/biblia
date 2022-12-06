@@ -4,16 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IdiomaResource extends JsonResource
+class VersaoResource extends JsonResource
 {
-
-    /**
-     * The "data" wrapper that should be applied.
-     *
-     * @var string|null
-     */
-    //public static $wrap = 'idioma';
-
     /**
      * Transform the resource into an array.
      *
@@ -25,8 +17,10 @@ class IdiomaResource extends JsonResource
         return [
             'id'=> $this->id,
             'nome'=> $this->nome,
+            'abreviacao'=> $this->abreviacao,
             //aqui tras os relacionamentos
-            'versoes'=> new VersoesCollection($this->whenLoaded('versoes')) 
+            'idioma'=> new IdiomaResource($this->whenLoaded('idioma')),
+            'livros'=> new LivrosCollection($this->whenLoaded('livros')),
         ];
     }
 }
