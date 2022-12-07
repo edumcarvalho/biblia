@@ -26,7 +26,19 @@ class IdiomaResource extends JsonResource
             'id'=> $this->id,
             'nome'=> $this->nome,
             //aqui tras os relacionamentos
-            'versoes'=> new VersoesCollection($this->whenLoaded('versoes')) 
+            'versoes'=> new VersoesCollection($this->whenLoaded('versoes')),
+            'links' => [
+                [
+                    'rel'  => 'Alterar um idioma',
+                    'type' => 'PUT',
+                    'link' => route('idioma.update', $this->id)
+                ],
+                [
+                    'rel'  => 'Excluir um idioma',
+                    'type' => 'DELETE',
+                    'link' => route('idioma.destroy', $this->id)
+                ]
+            ]
         ];
     }
 }

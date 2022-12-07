@@ -15,7 +15,7 @@ class VersiculosCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => VersiculosCollection::collection($this->collection),
+            'data' => VersiculoResource::collection($this->collection),
         ];
     }
 }

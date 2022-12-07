@@ -14,8 +14,8 @@ class IdiomaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return Idioma::all();
+    {        
+        return Idioma::all();        
     }
 
     /**

@@ -19,10 +19,23 @@ class LivroResource extends JsonResource
             'posicao' => $this->posicao,
             'nome' => $this->nome,
             'abreviacao' => $this->abreviacao,
-            'testamento'=> $this->whenLoaded('testamento'),
+            
             //aqui tras os relacionamentos
+            'testamento'=> new TestamentoResource($this->whenLoaded('testamento')),
             'versiculos'=> new VersiculosCollection($this->whenLoaded('versiculos')),
             'versao'=> new VersaoResource($this->whenLoaded('versao')),
+            'links' => [
+                [
+                    'rel'  => 'Alterar um LIVRO',
+                    'type' => 'PUT',
+                    'link' => route('livro.update', $this->id)
+                ],
+                [
+                    'rel'  => 'Excluir um livro',
+                    'type' => 'DELETE',
+                    'link' => route('livro.destroy', $this->id)
+                ]
+            ]
 
         ];
     }

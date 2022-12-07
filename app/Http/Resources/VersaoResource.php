@@ -21,6 +21,18 @@ class VersaoResource extends JsonResource
             //aqui tras os relacionamentos
             'idioma'=> new IdiomaResource($this->whenLoaded('idioma')),
             'livros'=> new LivrosCollection($this->whenLoaded('livros')),
+            'links' => [
+                [
+                    'rel'  => 'Alterar uma versao',
+                    'type' => 'PUT',
+                    'link' => route('versao.update', $this->id)
+                ],
+                [
+                    'rel'  => 'Excluir uma versao',
+                    'type' => 'DELETE',
+                    'link' => route('versao.destroy', $this->id)
+                ]
+            ]
         ];
     }
 }

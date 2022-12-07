@@ -21,6 +21,18 @@ class VersiculoResource extends JsonResource
             'texto' => $this->texto,
             //aqui tras os relacionamentos
             'livro'=> new LivroResource($this->whenLoaded('livro')),
+            'links' => [
+                [
+                    'rel'  => 'Alterar um versiculo',
+                    'type' => 'PUT',
+                    'link' => route('versiculo.update', $this->id)
+                ],
+                [
+                    'rel'  => 'Excluir um versiculo',
+                    'type' => 'DELETE',
+                    'link' => route('versiculo.destroy', $this->id)
+                ]
+            ]
         ];
     }
 }
